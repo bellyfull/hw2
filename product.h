@@ -15,7 +15,7 @@ public:
      * Returns the appropriate keywords that this product should be associated with
      */
     virtual std::set<std::string> keywords() const = 0;
-
+    // ex) book will be associated with 
     /**
      * Allows for a more detailed search beyond simple keywords
      */

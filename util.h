@@ -6,26 +6,41 @@
 #include <set>
 
 
-/** Complete the setIntersection and setUnion functions below
+/** Complete the std::setIntersection and std::setUnion functions below
  *  in this header file (since they are templates).
  *  Both functions should run in time O(n*log(n)) and not O(n^2)
  */
 template <typename T>
-std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
-{
+std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2) //finds keyword that is BOTH in s1 and s2
+{ //must return a set
+  std::set<T> results;
+  typename std::set<T>::iterator it;
+  for (it = s1.begin(); it!=s1.end(); it++) { //don't need s2 iterator. just use find within s2 std::set
+    if (s2.find(*it) != s2.end()) { 
+      results.insert(*it);
+    }
+  }
+  return results;
+  // if (it == s2 iterator) {
+  //   hits.append(it)
 
-
-
-
+  // }
 
 }
 template <typename T>
-std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
-{
+std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2) // finds keyword thats is s1 or s2
+{ //don't need to exclude intersecting keywords wont be repeatedly included in std::set
+  std::set<T> results;
+  typename std::set<T>::iterator it;
 
+  for (it = s1.begin(); it!=s1.end(); it++) {
+    results.insert(*it);
+  }
+  for (it = s2.begin();it!=s2.end(); it++) {
+    results.insert(*it);
+  }
 
-
-
+  return results;
 
 }
 

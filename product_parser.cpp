@@ -1,10 +1,11 @@
 #include <iostream>
 #include <sstream>
 #include "product_parser.h"
-#include "book.h"
+#include <set>
 #include "clothing.h"
 #include "movie.h"
 #include "util.h"
+#include "book.h"
 using namespace std;
 
 
@@ -129,9 +130,8 @@ std::string ProductBookParser::categoryID()
  * using the data members in this class and the parent ProductParser class
  */
 Product* ProductBookParser::makeProduct()
-{
-
-
+{ //category id is book
+    return new Book(categoryID(), prodName_, price_, qty_, author_, isbn_);
 }
 
 
@@ -184,9 +184,8 @@ std::string ProductClothingParser::categoryID()
  * using the data members in this class and the parent ProductParser class
  */
 Product* ProductClothingParser::makeProduct()
-{
-
-
+{ //category id is clothing
+  return new Clothing(categoryID(), prodName_, price_, qty_, brand_, size_);
 
 }
 
@@ -244,7 +243,6 @@ std::string ProductMovieParser::categoryID()
  * using the data members in this class and the parent ProductParser class
  */
 Product* ProductMovieParser::makeProduct()
-{
-
-
+{ //category id is movie
+  return new Movie(categoryID(), prodName_, price_, qty_, genre_, rating_);
 }

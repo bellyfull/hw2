@@ -9,6 +9,7 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
 
 using namespace std;
 struct ProdNameSorter {
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -56,10 +57,12 @@ int main(int argc, char* argv[])
     cout << "  AND term term ...                  " << endl;
     cout << "  OR term term ...                   " << endl;
     cout << "  ADD username search_hit_number     " << endl;
-    cout << "  VIEWCART username                  " << endl;
+    cout << "  VIEWadd username                  " << endl;
     cout << "  BUYCART username                   " << endl;
     cout << "  QUIT new_db_filename               " << endl;
     cout << "====================================" << endl;
+    string username;
+    size_t hit_index;
 
     vector<Product*> hits;
     bool done = false;
@@ -74,6 +77,7 @@ int main(int argc, char* argv[])
                 string term;
                 vector<string> terms;
                 while(ss >> term) {
+                  // cout << "term: " << term << endl;
                     term = convToLower(term);
                     terms.push_back(term);
                 }
@@ -100,9 +104,27 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
-
-
-
+            else if (cmd == "ADD") {
+                ss >>username;
+                ss >> hit_index;
+                hit_index--;
+                if (hit_index>=0 && hits.size()>hit_index) {
+                    ds.addToCart(username, hits[hit_index]);
+                }
+                else {
+                    cout <<"invalid" << endl;
+                }
+            }
+            else if (cmd == "VIEWCART") {
+              ss >> username;
+              ds.viewCart(username);
+            }
+            else if (cmd == "BUYCART") {
+              string buy;
+              while (ss>>buy) {
+                ds.buyCart(buy);
+              }
+            }
 
             else {
                 cout << "Unknown command" << endl;
